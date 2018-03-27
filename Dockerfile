@@ -25,5 +25,5 @@ COPY --from=builder /go/dist/loadtest /mongo-loadtest
 RUN chmod 777 /mongo-loadtest
 
 EXPOSE 9999
-WORKDIR /mongo-loadtest
+WORKDIR /
 ENTRYPOINT ["/mongo-loadtest"]
