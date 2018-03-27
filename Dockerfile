@@ -3,10 +3,10 @@ FROM golang:1.8.3-alpine as builder
 ARG APP_VERSION=unkown
 
 # copy code
-ADD . /go/src/github.com/stefanprodan/mongo-swarm/loadtest
+ADD . /go/src/github.com/malkir/mongo-loadtest
 
 # solution root
-WORKDIR /go/src/github.com/stefanprodan/mongo-swarm/loadtest
+WORKDIR /go/src/github.com/malkir/mongo-loadtest
 
 # pull deps
 RUN apk add --no-cache --virtual git
@@ -20,10 +20,10 @@ RUN go build -ldflags "-X main.version=$APP_VERSION" \
 
 FROM alpine:latest
 
-COPY --from=builder /go/dist/loadtest /mongo-swarm/loadtest
+COPY --from=builder /go/dist/loadtest /mongo-loadtest
 
-RUN chmod 777 /mongo-swarm/loadtest
+RUN chmod 777 /mongo-loadtest
 
 EXPOSE 9999
-WORKDIR /mongo-swarm
-ENTRYPOINT ["/mongo-swarm/loadtest"]
+WORKDIR /mongo-loadtest
+ENTRYPOINT ["/mongo-loadtest"]
